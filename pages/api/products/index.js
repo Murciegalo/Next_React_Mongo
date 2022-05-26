@@ -6,7 +6,12 @@ export default async function handler(req, res) {
   dbConnect();
 
   if (method === 'GET') {
-    return res.status(200).send('hello');
+    try {
+      const docs = await Product.find();
+      return res.status(200).json(docs);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   }
 
   if (method === 'POST') {
