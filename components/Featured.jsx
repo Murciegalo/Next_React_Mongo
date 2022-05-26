@@ -25,7 +25,12 @@ const Featured = () => {
         className={styles.arrowContainer}
         style={{ left: 0 }}
         onClick={() => handleArrow('l')}>
-        <Image src='/img/arrowl.png' alt='' layout='fill' objectFit='contain' />
+        <Image
+          src='/imgs/arrowl.png'
+          alt=''
+          layout='fill'
+          objectFit='contain'
+        />
       </div>
       <div
         className={styles.wrapper}
@@ -40,7 +45,12 @@ const Featured = () => {
         className={styles.arrowContainer}
         style={{ right: 0 }}
         onClick={() => handleArrow('r')}>
-        <Image src='/img/arrowr.png' layout='fill' alt='' objectFit='contain' />
+        <Image
+          src='/imgs/arrowr.png'
+          layout='fill'
+          alt=''
+          objectFit='contain'
+        />
       </div>
     </div>
   );
