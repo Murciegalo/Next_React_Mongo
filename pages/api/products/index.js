@@ -22,4 +22,22 @@ export default async function handler(req, res) {
       return res.status(500).json(err);
     }
   }
+
+  // if (method === 'PUT') {
+  //   try {
+  //     const doc = await Product.findByIdAndUpdate();
+  //     return res.status(200).json(doc);
+  //   } catch (err) {
+  //     return res.status(500).json(err);
+  //   }
+  // }
+
+  // if (method === 'DELETE') {
+  //   try {
+  //     const doc = await Product.findByIdAndDelete();
+  //     return res.status(200).json(doc);
+  //   } catch (err) {
+  //     return res.status(500).json(err);
+  //   }
+  // }
 }
