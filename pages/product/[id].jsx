@@ -3,73 +3,68 @@ import Image from 'next/image';
 import { useState } from 'react';
 import axios from 'axios';
 
-const Product = ({ pizza }) => {
+const Product = ({ pizza: { img, title, prices, desc, extraOptions } }) => {
+  const [price, setPrice] = useState(prices[0]);
   const [size, setSize] = useState(0);
+
+  const changePrice = (number) => setPrice(price + number);
+
+  const handleSize = (sizeIndex) => {
+    const difference = prices[sizeIndex] - prices[size];
+    setSize(sizeIndex);
+    changePrice(difference);
+  };
+
+  const handleChange = (e, option) => {
+    console.log('Option', e.target.checked);
+    const checked = e.target.checked;
+    if (checked) {
+      changePrice(option.price);
+    } else {
+      changePrice(-option.price);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imgContainer}>
-          <Image src={pizza.img} objectFit='contain' layout='fill' alt='' />
+          <Image src={img} objectFit='contain' layout='fill' alt='' />
         </div>
       </div>
       <div className={styles.right}>
-        <h1 className={styles.title}>{pizza.title}</h1>
-        <span className={styles.price}>${pizza.prices[size]}</span>
-        <p className={styles.desc}>{pizza.desc}</p>
+        <h1 className={styles.title}>{title}</h1>
+        <span className={styles.price}>${price}</span>
+        <p className={styles.desc}>{desc}</p>
         <h3 className={styles.choose}>Choose the size</h3>
         <div className={styles.sizes}>
-          <div className={styles.size} onClick={() => setSize(0)}>
+          <div className={styles.size} onClick={() => handleSize(0)}>
             <Image src='/imgs/size.png' layout='fill' alt='' />
             <span className={styles.number}>Small</span>
           </div>
-          <div className={styles.size} onClick={() => setSize(1)}>
+          <div className={styles.size} onClick={() => handleSize(1)}>
             <Image src='/imgs/size.png' layout='fill' alt='' />
             <span className={styles.number}>Medium</span>
           </div>
-          <div className={styles.size} onClick={() => setSize(2)}>
+          <div className={styles.size} onClick={() => handleSize(2)}>
             <Image src='/imgs/size.png' layout='fill' alt='' />
             <span className={styles.number}>Large</span>
           </div>
         </div>
         <h3 className={styles.choose}>Choose additional ingredients</h3>
         <div className={styles.ingredients}>
-          <div className={styles.option}>
-            <input
-              type='checkbox'
-              id='double'
-              name='double'
-              className={styles.checkbox}
-            />
-            <label htmlFor='double'>Double Ingredients</label>
-          </div>
-          <div className={styles.option}>
-            <input
-              className={styles.checkbox}
-              type='checkbox'
-              id='cheese'
-              name='cheese'
-            />
-            <label htmlFor='cheese'>Extra Cheese</label>
-          </div>
-          <div className={styles.option}>
-            <input
-              className={styles.checkbox}
-              type='checkbox'
-              id='spicy'
-              name='spicy'
-            />
-            <label htmlFor='spicy'>Spicy Sauce</label>
-          </div>
-          <div className={styles.option}>
-            <input
-              className={styles.checkbox}
-              type='checkbox'
-              id='garlic'
-              name='garlic'
-            />
-            <label htmlFor='garlic'>Garlic Sauce</label>
-          </div>
+          {extraOptions.map((option) => (
+            <div className={styles.option} key={option._id}>
+              <input
+                className={styles.checkbox}
+                type='checkbox'
+                id={option.text}
+                name={option.text}
+                onChange={(e) => handleChange(e, option)}
+              />
+              <label htmlFor='cheese'>Extra Cheese</label>
+            </div>
+          ))}
         </div>
         <div className={styles.add}>
           <input type='number' defaultValue={1} className={styles.quantity} />
