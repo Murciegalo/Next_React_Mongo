@@ -3,15 +3,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import axios from 'axios';
 
-const Product = () => {
+const Product = ({ pizza }) => {
   const [size, setSize] = useState(0);
-  const pizza = {
-    id: 1,
-    img: '/imgs/pizza.png',
-    name: 'CAMPAGNOLA',
-    price: [19.9, 23.9, 27.9],
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu purus, rhoncus fringilla vestibulum vel, dignissim vel ante. Nulla facilisi. Nullam a urna sit amet tellus pellentesque egestas in in ante.',
-  };
 
   return (
     <div className={styles.container}>
@@ -22,7 +15,7 @@ const Product = () => {
       </div>
       <div className={styles.right}>
         <h1 className={styles.title}>{pizza.title}</h1>
-        <span className={styles.price}>${pizza.price[size]}</span>
+        <span className={styles.price}>${pizza.prices[size]}</span>
         <p className={styles.desc}>{pizza.desc}</p>
         <h3 className={styles.choose}>Choose the size</h3>
         <div className={styles.sizes}>
