@@ -6,22 +6,24 @@ import axios from 'axios';
 const Product = ({ pizza: { img, title, prices, desc, extraOptions } }) => {
   const [price, setPrice] = useState(prices[0]);
   const [size, setSize] = useState(0);
+  const [extras, setExtras] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
   const changePrice = (number) => setPrice(price + number);
-
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex] - prices[size];
     setSize(sizeIndex);
     changePrice(difference);
   };
-
   const handleChange = (e, option) => {
     console.log('Option', e.target.checked);
     const checked = e.target.checked;
     if (checked) {
       changePrice(option.price);
+      setExtras((prev) => [...prev, option]);
     } else {
       changePrice(-option.price);
+      setExtras(extras.filter((el) => el._id !== option._id));
     }
   };
 
@@ -67,7 +69,12 @@ const Product = ({ pizza: { img, title, prices, desc, extraOptions } }) => {
           ))}
         </div>
         <div className={styles.add}>
-          <input type='number' defaultValue={1} className={styles.quantity} />
+          <input
+            onChange={(e) => setQuantity(e.target.value)}
+            type='number'
+            defaultValue={1}
+            className={styles.quantity}
+          />
           <button className={styles.button}>Add to Cart</button>
         </div>
       </div>
