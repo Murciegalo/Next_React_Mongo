@@ -1,7 +1,9 @@
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import styles from '../styles/Nav.module.css';
 
 const Nav = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -27,7 +29,7 @@ const Nav = () => {
       <div className={styles.item}>
         <div className={styles.cart}>
           <Image src='/imgs/cart.png' alt='' width='30px' height='30px' />
-          <div className={styles.counter}>2</div>
+          <div className={styles.counter}>{quantity}</div>
         </div>
       </div>
     </div>
