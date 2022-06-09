@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import styles from '../styles/Nav.module.css';
 
@@ -26,12 +27,14 @@ const Nav = () => {
           <li className={styles.listItem}>Contact</li>
         </ul>
       </div>
-      <div className={styles.item}>
-        <div className={styles.cart}>
-          <Image src='/imgs/cart.png' alt='' width='30px' height='30px' />
-          <div className={styles.counter}>{quantity}</div>
+      <Link href='/cart' passHref>
+        <div className={styles.item}>
+          <div className={styles.cart}>
+            <Image src='/imgs/cart.png' alt='' width='30px' height='30px' />
+            <div className={styles.counter}>{quantity}</div>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
