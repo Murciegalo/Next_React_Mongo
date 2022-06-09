@@ -1,5 +1,5 @@
 .container {
-  padding: 50px;
+  padding: 65px;
   display: flex;
 }
 
@@ -35,7 +35,7 @@
 
 .wrapper {
   width: 90%;
-  max-height: 315px;
+  max-height: 340px;
   border-radius: 5px;
   background-color: #333;
   padding: 50px;
@@ -58,6 +58,27 @@
   margin-top: 20px;
 }
 
+.paypal {
+  margin-top: 1rem;
+  border-top: 1px solid #fff;
+  padding-top: 1rem;
+}
+
+.cash {
+  margin: 1rem 0;
+  width: 100%;
+  background: transparent;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+}
+.cash:hover {
+  cursor: pointer;
+  color: teal;
+  background-color: #fff;
+}
 @media screen and (max-width: 480px) {
   .container {
     flex-direction: column;

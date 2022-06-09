@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,10 +9,12 @@ import {
 import styles from '../styles/Cart.module.css';
 
 const Cart = () => {
+  const [open, setOpen] = useState(false);
   // PAYPAL
   const amount = '2';
   const currency = 'USD';
   const style = { layout: 'vertical' };
+
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
@@ -130,15 +132,23 @@ const Cart = () => {
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Total:</b>${cart.total}
           </div>
-          <button className={styles.button}>CHECKOUT NOW!</button>
-          <PayPalScriptProvider
-            options={{
-              'client-id': 'test',
-              components: 'buttons',
-              currency: 'USD',
-            }}>
-            <ButtonWrapper currency={currency} showSpinner={false} />
-          </PayPalScriptProvider>
+          {open ? (
+            <div className={styles.paypal}>
+              <button className={styles.cash}>Pay on cash</button>
+              <PayPalScriptProvider
+                options={{
+                  'client-id': 'test',
+                  components: 'buttons',
+                  currency: 'USD',
+                }}>
+                <ButtonWrapper currency={currency} showSpinner={false} />
+              </PayPalScriptProvider>
+            </div>
+          ) : (
+            <button onClick={() => setOpen(!open)} className={styles.button}>
+              CHECKOUT NOW!
+            </button>
+          )}
         </div>
       </div>
     </div>
