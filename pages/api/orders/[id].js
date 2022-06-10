@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/db';
-import Product from '../../../model/Product';
+import Order from '../../../model/Order';
 
 export default async function handler(req, res) {
   const {
@@ -10,16 +10,16 @@ export default async function handler(req, res) {
 
   if (method === 'GET') {
     try {
-      const docs = await Product.findById(id);
+      const docs = await Order.find();
       return res.status(200).json(docs);
     } catch (err) {
       return res.status(500).json(err);
     }
   }
 
-  if (method === 'PUT') {
+  if (method === 'POST') {
     try {
-      const doc = await Product.findByIdAndUpdate();
+      const doc = await Order.create(req.body);
       return res.status(200).json(doc);
     } catch (err) {
       return res.status(500).json(err);
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
   if (method === 'DELETE') {
     try {
-      const doc = await Product.findByIdAndDelete();
+      const doc = await Order.findByIdAndDelete(id);
       return res.status(200).json(doc);
     } catch (err) {
       return res.status(500).json(err);

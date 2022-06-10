@@ -3,7 +3,7 @@ import Product from '../../../model/Product';
 
 export default async function handler(req, res) {
   const { method } = req;
-  dbConnect();
+  await dbConnect();
 
   if (method === 'GET') {
     try {
