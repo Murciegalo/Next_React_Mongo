@@ -1,8 +1,9 @@
 import styles from '../../styles/Order.module.css';
 import Image from 'next/image';
+import axios from 'axios';
 
 const Order = ({ order }) => {
-  const status = 0;
+  const status = order.status || 0;
 
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;
@@ -23,16 +24,24 @@ const Order = ({ order }) => {
               </tr>
               <tr className={styles.tr}>
                 <td>
-                  <span className={styles.id}>129837819237</span>
+                  <span className={styles.id}>
+                    {order._id || '129837819237'}
+                  </span>
                 </td>
                 <td>
-                  <span className={styles.name}>John Doe</span>
+                  <span className={styles.name}>
+                    {order.customer || 'John Doe'}
+                  </span>
                 </td>
                 <td>
-                  <span className={styles.address}>Elton st. 212-33 LA</span>
+                  <span className={styles.address}>
+                    {order.address || 'Elton st. 212-33 LA'}
+                  </span>
                 </td>
                 <td>
-                  <span className={styles.total}>$79.80</span>
+                  <span className={styles.total}>
+                    {order.total || '$79.80'}
+                  </span>
                 </td>
               </tr>
             </tbody>
@@ -97,13 +106,15 @@ const Order = ({ order }) => {
         <div className={styles.wrapper}>
           <h2 className={styles.title}>CART TOTAL</h2>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Subtotal:</b>$79.60
+            <b className={styles.totalTextTitle}>Subtotal:</b>$
+            {order.total || '79.60'}
           </div>
           <div className={styles.totalText}>
             <b className={styles.totalTextTitle}>Discount:</b>$0.00
           </div>
           <div className={styles.totalText}>
-            <b className={styles.totalTextTitle}>Total:</b>$79.60
+            <b className={styles.totalTextTitle}>Total:</b>$
+            {order.total || '79.60'}
           </div>
           <button disabled className={styles.button}>
             PAID

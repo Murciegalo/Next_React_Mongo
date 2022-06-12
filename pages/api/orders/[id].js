@@ -10,24 +10,24 @@ export default async function handler(req, res) {
 
   if (method === 'GET') {
     try {
-      const doc = await Order.findById(id);
-      return res.status(200).json(doc);
+      const order = await Order.findById(id);
+      return res.status(200).json(order);
     } catch (err) {
       return res.status(500).json(err);
     }
   }
-  if (method === 'POST') {
+  if (method === 'PUT') {
     try {
-      const doc = await Order.create(req.body);
-      return res.status(200).json(doc);
+      const order = await Order.create(req.body);
+      return res.status(200).json(order);
     } catch (err) {
       return res.status(500).json(err);
     }
   }
   if (method === 'DELETE') {
     try {
-      const doc = await Order.findByIdAndDelete(id);
-      return res.status(200).json(doc);
+      const order = await Order.findByIdAndDelete(id);
+      return res.status(200).json(order);
     } catch (err) {
       return res.status(500).json(err);
     }
