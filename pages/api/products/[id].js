@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   if (method === 'PUT') {
     try {
-      const doc = await Product.findByIdAndUpdate();
+      const doc = await Product.findByIdAndUpdate(id);
       return res.status(200).json(doc);
     } catch (err) {
       return res.status(500).json(err);
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
   if (method === 'DELETE') {
     try {
-      const doc = await Product.findByIdAndDelete();
+      const doc = await Product.findByIdAndDelete(id);
       return res.status(200).json(doc);
     } catch (err) {
       return res.status(500).json(err);
