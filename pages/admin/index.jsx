@@ -1,7 +1,8 @@
+import axios from 'axios';
 import Image from 'next/image';
 import styles from '../../styles/Admin.module.css';
 
-const index = () => {
+const index = ({ products, orders }) => {
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -15,24 +16,26 @@ const index = () => {
               <th>Price</th>
               <th>Action</th>
             </tr>
-            <tr className={styles.trTitle}>
-              <th>
-                <Image
-                  width={50}
-                  height={50}
-                  objectFit='cover'
-                  alt=''
-                  src='/imgs/pizza.png'
-                />
-              </th>
-              <th>Pizza Id</th>
-              <th>Pizza Title</th>
-              <th>$50</th>
-              <th>
-                <button className={styles.button}>Edit</button>
-                <button className={styles.button}>Delete</button>
-              </th>
-            </tr>
+            {products.map((el) => (
+              <tr key={el._id} className={styles.trTitle}>
+                <th>
+                  <Image
+                    width={50}
+                    height={50}
+                    objectFit='cover'
+                    alt=''
+                    src={el.img}
+                  />
+                </th>
+                <th>{el._id.slice(0, 5)}...</th>
+                <th>{el.title}</th>
+                <th>{el.prices[0]}</th>
+                <th>
+                  <button className={styles.button}>Edit</button>
+                  <button className={styles.button}>Delete</button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -63,5 +66,15 @@ const index = () => {
       </div>
     </div>
   );
+};
+export const getServerSideProps = async () => {
+  const productsRes = await axios.get(`http://localhost:3000/api/products`);
+  const ordersRes = await axios.get(`http://localhost:3000/api/orders`);
+  return {
+    props: {
+      products: productsRes.data,
+      orders: ordersRes.data,
+    },
+  };
 };
 export default index;
