@@ -3,15 +3,32 @@ import Image from 'next/image';
 import { useState } from 'react';
 import styles from '../../styles/Admin.module.css';
 
-const Index = ({ products }) => {
-  const [pizzaList, setPizzaList] = useState([]);
+const Index = ({ products, orders }) => {
+  const [pizzaList, setPizzaList] = useState(products);
   const [ordersList, setOrdersList] = useState([]);
-
+  const [status, setStatus] = useState([
+    'preparing',
+    'on delivery',
+    'delivered',
+  ]);
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
         `http://localhost:3000/api/products/${id}`
       );
+      setPizzaList(pizzaList.filter((el) => el._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleStatus = async (id) => {
+    const idStatus = ordersList.filter((el) => el._id === id)[0];
+    const currentStatus = idStatus.status;
+    try {
+      const res = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+        status: currentStatus + 1,
+      });
+      setOrdersList([res.data, ...ordersList.filter((el) => el._id !== id)]);
     } catch (err) {
       console.log(err);
     }
@@ -29,7 +46,7 @@ const Index = ({ products }) => {
               <th>Price</th>
               <th>Action</th>
             </tr>
-            {products.map((el) => (
+            {pizzaList.map((el) => (
               <tr key={el._id} className={styles.trTitle}>
                 <th>
                   <Image
@@ -68,16 +85,24 @@ const Index = ({ products }) => {
               <th>Status</th>
               <th>Action</th>
             </tr>
-            <tr className={styles.trTitle}>
-              <th>{'45513268965135'.slice(0, 6)}...</th>
-              <th>Jhon Doe</th>
-              <th>$50</th>
-              <th>Paid</th>
-              <th>Preparing</th>
-              <th>
-                <button className={styles.button}>Next Stage</button>
-              </th>
-            </tr>
+            {ordersList.map((el) => (
+              <tr key={el._id} className={styles.trTitle}>
+                <th>{el._id.slice(0, 6)}...</th>
+                <th>{el.customer}</th>
+                <th>{el.total}</th>
+                <th>
+                  {el.method === 0 ? <span>cash</span> : <span>paid</span>}
+                </th>
+                <th>{status[el.status]}</th>
+                <th>
+                  <button
+                    onClick={() => handleStatus(el._id)}
+                    className={styles.button}>
+                    Next Stage
+                  </button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

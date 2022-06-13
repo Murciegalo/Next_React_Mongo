@@ -18,16 +18,15 @@ export default async function handler(req, res) {
   }
   if (method === 'PUT') {
     try {
-      const order = await Order.findByIdAndUpdate(req.body);
-      return res.status(200).json(order);
+      const order = await Order.findByIdAndUpdate(id, req.body, { new: true });
+      return res.status(201).json(order);
     } catch (err) {
       return res.status(500).json(err);
     }
   }
   if (method === 'DELETE') {
     try {
-      const order = await Order.findByIdAndDelete(id);
-      return res.status(200).json(order);
+      await Order.findByIdAndDelete(id);
     } catch (err) {
       return res.status(500).json(err);
     }
