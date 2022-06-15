@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Head from 'next/head';
+import { useState } from 'react';
+import Add from '../components/Add';
 import AddBtn from '../components/AddBtn';
 import Featured from '../components/Featured';
 import PizzaList from '../components/PizzaList';
@@ -7,7 +9,6 @@ import styles from '../styles/Home.module.css';
 
 export default function Home({ pizzaList }) {
   const [close, setClose] = useState(true);
-  console.log('ADMIN', admin);
   return (
     <div className={styles.container}>
       <Head>
