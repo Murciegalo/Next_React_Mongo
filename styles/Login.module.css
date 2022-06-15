@@ -1,2 +1,36 @@
 .container {
+  height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  text-align: center;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  height: 40px;
+  width: 400px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  text-align: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.button {
+  height: 40px;
+  margin-bottom: 20px;
+  border: none;
+  background-color: teal;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.error {
+  font-size: 16px;
+  color: red;
+  text-align: center;
 }
