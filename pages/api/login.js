@@ -9,8 +9,16 @@ const handler = (req, res) => {
     ) {
       res.setHeaders(
         'Set-Cookie',
-        cookie.serialize('token', process.env.TOKEN)
+        cookie.serialize('token', process.env.TOKEN, {
+          maxAge: 60 * 60,
+          sameSite: 'strict',
+          path: '/',
+          // httpOnly: true Not in DEV
+        })
       );
+      return res.status(200).json({ msg: 'Login Successfull' });
+    } else {
+      return res.status(400).json({ msg: 'Wrong Credentials' });
     }
   }
 };
