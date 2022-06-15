@@ -3,9 +3,7 @@ import cookie from 'cookie';
 const handler = (req, res) => {
   if (req.method === 'POST') {
     const { username, password } = req.body;
-    console.log('USER', process.env.USERNAME);
-    console.log('USER', process.env.PASSWORD);
-    console.log('body', req.body);
+
     if (username == process.env.USERNAME && password == process.env.PASSWORD) {
       res.setHeader(
         'Set-Cookie',
