@@ -2,7 +2,9 @@ import dbConnect from '../../../utils/db';
 import Product from '../../../model/Product';
 
 export default async function handler(req, res) {
-  const { method } = req;
+  const { method, cookies } = req;
+  const token = cookies.token;
+
   await dbConnect();
 
   if (method === 'GET') {
@@ -15,6 +17,9 @@ export default async function handler(req, res) {
   }
 
   if (method === 'POST') {
+    if (!token || token !== process.env.TOKEN) {
+      return res.status(401).send('Not Authorized');
+    }
     try {
       const doc = await Product.create(req.body);
       return res.status(200).json(doc);
