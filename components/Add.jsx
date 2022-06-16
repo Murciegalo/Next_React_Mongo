@@ -7,7 +7,7 @@ const Add = ({ setClose }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [prices, setPrices] = useState([]);
-  const [extra, setExtra] = useState('');
+  const [extra, setExtra] = useState(null);
   const [extraOptions, setExtraOptions] = useState([]);
 
   const handleExtraInput = (e) => {
@@ -23,6 +23,8 @@ const Add = ({ setClose }) => {
     currentPrices[index] = e.target.value;
     setPrices(currentPrices);
   };
+
+  const handleCreate = async () => {};
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -32,7 +34,7 @@ const Add = ({ setClose }) => {
         <h1 className={styles.title}>Add a new pizza</h1>
         <div className={styles.item}>
           <label className={styles.label}>Choose an image</label>
-          <input type='file' />
+          <input type='file' onChange={(e) => setFile(e.target.files[0])} />
         </div>
         <div className={styles.item}>
           <label className={styles.label}>Title</label>
@@ -79,20 +81,30 @@ const Add = ({ setClose }) => {
               type='text'
               name='text'
               placeholder='Item'
-              onChange={handleExtraInput}
+              onChange={(e) => handleExtraInput(e)}
             />
             <input
               className={`${styles.input} ${styles.inputSm}`}
               type='number'
               name='price'
               placeholder='Price'
-              onChange={handleExtraInput}
+              onChange={(e) => handleExtraInput(e)}
             />
             <button className={styles.extraBtn} onClick={handleExtra}>
               Add
             </button>
           </div>
+          <div className={styles.extraItems}>
+            {extraOptions.map((el) => (
+              <span key={el.text} className={styles.extraItem}>
+                {el.text}
+              </span>
+            ))}
+          </div>
         </div>
+        <button className={styles.addBtn} onClick={handleCreate}>
+          Add New Product
+        </button>
       </div>
     </div>
   );

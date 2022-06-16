@@ -1,2 +1,35 @@
 .container {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(245, 240, 240, 0.52);
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  font-weight: 600;
+  font-size: 25px;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  right: -15px;
+  top: -15px;
+}
+.wrapper {
+  position: relative;
+  width: 500px;
+  background-color: white;
+  padding: 50px;
+  border-radius: 20px;
 }
