@@ -3,7 +3,7 @@ import styles from '../styles/AddBtn.module.css';
 
 const AddBtn = ({ setClose }) => {
   return (
-    <div onClick={() => setClose(false)} className={styles.AddBtn}>
+    <div className={styles.mainAddBtn} onClick={() => setClose(false)}>
       Add new pizza
     </div>
   );
